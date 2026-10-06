@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Upload, Users, FileText, Trash2, AlertCircle, Mail, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { apiEndpoint } from "@/utils/apiBase";
 
 const BulkAuditView = () => {
   const [mockFiles] = useState([
@@ -22,8 +23,7 @@ const BulkAuditView = () => {
     setError("");
     setSubmitting(true);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "";
-      const res = await fetch(`${apiUrl}/api/waitlist`, {
+      const res = await fetch(apiEndpoint("/api/waitlist"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim() }),
@@ -148,7 +148,7 @@ const BulkAuditView = () => {
         {[
           { label: "Total Batches", value: "0" },
           { label: "Avg. Consensus Time", value: "--" },
-          { label: "Registry Storage", value: "Stellar Asset Contract" },
+          { label: "Registry Storage", value: "On-chain Result Receipts" },
         ].map((stat) => (
           <div key={stat.label} className="glass-card p-4 text-center">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mb-1">{stat.label}</p>
